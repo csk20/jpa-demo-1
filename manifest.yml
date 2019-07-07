@@ -1,0 +1,11 @@
+---
+applications:
+- name: jpa-demo-1
+  health-check-type: none
+  path: \build\libs\jpa-demo-1-1-SNAPSHOT.jar 
+  
+#env:
+
+
+  
+    

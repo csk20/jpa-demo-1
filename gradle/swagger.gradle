@@ -1,0 +1,33 @@
+apply plugin: 'java'
+
+configurations{
+  swagger
+}
+
+
+dependencies {
+// https://mvnrepository.com/artifact/io.swagger/swagger-codegen
+swagger  "io.swagger:swagger-codegen-cli:2.2.1"
+}
+
+
+
+task generate( type : JavaExec){
+
+classpath = configurations.swagger
+     
+main = "io.swagger.codegen.SwaggerCodegen"
+
+def inputSpec="$projectDir/src/main/resources/swagger/generatePojo.json"
+
+args = ["generate","-l","java",
+        "--model-package","com.example.pojo",
+    
+        "-i","${inputSpec}","-o","build/swagger"
+]
+
+jvmArgs = ["-Dmodels"]
+}
+
+compileJava.dependsOn  generate
+

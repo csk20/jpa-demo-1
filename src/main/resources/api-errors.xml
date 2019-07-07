@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api-errors>
+
+	<api-error	errorId="error.invalid"	errorMsg="error Msg"	errorCode="700"/>
+
+	<api-error	errorId="invalid.user"	errorMsg="invalid user"	errorCode="800" />
+	<api-error	errorId="invalid"	errorMsg="msg"	errorCode="800" />
+	<api-error	errorId="invalid.id"	errorMsg="msg"	errorCode="600" />
+
+</api-errors>
+  
