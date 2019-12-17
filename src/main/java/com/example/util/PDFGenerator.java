@@ -2,7 +2,7 @@ package com.example.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.util.List;
+import java.lang.reflect.Array;
 import java.util.stream.Stream;
 
 import com.itextpdf.text.BaseColor;
@@ -19,7 +19,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class PDFGenerator {
-	 public static ByteArrayInputStream customerPDFReport(String customers) {
+	 public static ByteArrayInputStream customerPDFReport(String[] customers) {
 		    Document document = new Document();
 		        ByteArrayOutputStream out = new ByteArrayOutputStream();
 		        
@@ -35,37 +35,35 @@ public class PDFGenerator {
 		          document.add(para);
 		          document.add(Chunk.NEWLINE);
 		          
-		          PdfPTable table = new PdfPTable(3);
+		          PdfPTable table = new PdfPTable(customers.length);
 		          // Add PDF Table Header ->
-		            Stream.of("ID", "First Name", "Last Name")
+		        
+		          Stream.of(customers)
+		          //  Stream.of("ID", "First Name", "Last Name")
 		              .forEach(headerTitle -> {
 		                  PdfPCell header = new PdfPCell();
 		                  Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
 		                  header.setBackgroundColor(BaseColor.LIGHT_GRAY);
 		                  header.setHorizontalAlignment(Element.ALIGN_CENTER);
-		                  header.setBorderWidth(2);
+		                  header.setBorderWidth(1);
 		                  header.setPhrase(new Phrase(headerTitle, headFont));
 		                  table.addCell(header);
 		              });
-		            
+		            for(String customer:customers) {
 		           
-		              PdfPCell idCell = new PdfPCell(new Phrase(customers));
+		              PdfPCell idCell = new PdfPCell(new Phrase(customer));
 		              idCell.setPaddingLeft(4);
 		              idCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		              idCell.setHorizontalAlignment(Element.ALIGN_CENTER);
 		                table.addCell(idCell);
 		 
-		                PdfPCell firstNameCell = new PdfPCell(new Phrase(customers));
+		                PdfPCell firstNameCell = new PdfPCell(new Phrase(customer));
 		                firstNameCell.setPaddingLeft(4);
 		                firstNameCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
 		                firstNameCell.setHorizontalAlignment(Element.ALIGN_LEFT);
 		                table.addCell(firstNameCell);
 		 System.out.println("............added");
-		                PdfPCell idCell1 = new PdfPCell(new Phrase(customers));
-			              idCell1.setPaddingLeft(4);
-			              idCell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
-			              idCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
-			                table.addCell(idCell1);
+		            }
 			 
 		               		       
 		            document.add(table);

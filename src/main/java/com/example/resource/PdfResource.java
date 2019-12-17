@@ -1,8 +1,7 @@
 package com.example.resource;
 
 import java.io.ByteArrayInputStream;
-
-import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Array;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -13,15 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.request.vo.UserRegistrationInput;
-import com.example.response.vo.UserRegistrationOutput;
 import com.example.util.PDFGenerator;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
@@ -47,7 +43,7 @@ public class PdfResource {
 	  //  @ApiImplicitParam(name = "id", value = "User ID", required = true, dataType = "long", paramType = "query")
 	  })
 	@RequestMapping( value= "/pdf", produces= MediaType.APPLICATION_PDF_VALUE,consumes= {"application/json"} ,method = RequestMethod.POST)
-	public ResponseEntity<InputStreamResource> report(@RequestBody String customers) {
+	public ResponseEntity<InputStreamResource> report(@RequestBody String[] customers) {
 		
 		   
 		        ByteArrayInputStream bis = PDFGenerator.customerPDFReport(customers);
